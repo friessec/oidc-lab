@@ -57,7 +57,7 @@ class Cli(cmd2.Cmd):
         """ load a OP/RP config, further specific commands will be available afterwards """
         cfg_path = "config/" + ns.target + "/" + ns.name + "/professos.json"
         if not os.path.exists(cfg_path):
-            self.perror(cmd2.style('No {} target named {} found!'.format(ns.target, ns.name), fg=cmd2.fg.red))
+            self.perror(cmd2.style('No {} target named {} found!'.format(ns.target, ns.name), fg=cmd2.Fg.RED))
             return
 
         if self._testModule:
