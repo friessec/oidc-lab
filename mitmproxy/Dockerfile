@@ -1,15 +1,15 @@
-FROM mitmproxy/mitmproxy:6.0.2
+FROM mitmproxy/mitmproxy:8.0.0
 
 # Based on artemkloko/docker-mitm-nginx-proxy-companion
 
-# Because forego requires bash
-RUN apk add --no-cache bash dnsmasq
+RUN apt update && \
+    apt install -y \
+        wget \
+        dnsmasq \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Forego, copied from https://dl.equinox.io/ddollar/forego/stable
-RUN wget --quiet https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-amd64.tgz && \
-    tar xvf forego-stable-linux-amd64.tgz -C /usr/local/bin && \
-    rm forego-stable-linux-amd64.tgz && \
-    chmod u+x /usr/local/bin/forego
+COPY forego/forego /usr/local/bin/forego
 
 # Install docker-gen, copied from https://github.com/jwilder/nginx-proxy/blob/master/Dockerfile.alpine
 ENV DOCKER_GEN_VERSION 0.7.4

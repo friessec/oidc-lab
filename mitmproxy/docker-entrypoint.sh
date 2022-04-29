@@ -25,6 +25,6 @@ RUN_CMD="mitmweb --web-host 0.0.0.0 \
 
 # The following part was modified to generate Procfile with the commands
 # needed to run by forego
-echo "mitmproxy: su-exec mitmproxy ${RUN_CMD}" > Procfile
+echo "mitmproxy: su mitmproxy -c \"${RUN_CMD}\"" > Procfile
 echo "dnsmasq: docker-gen -watch -only-exposed -notify \"dnsmasq-reload -u root\" /etc/dnsmasq.tmpl /etc/dnsmasq.conf" >> Procfile
 forego start -r
